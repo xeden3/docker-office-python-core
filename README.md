@@ -1,3 +1,7 @@
+# Docker-Office-Python-Core
+
+This project combines a Docker image containing Wine 8, Microsoft Office 2010, and Python 3.8. It provides a convenient environment for secondary development based on this setup.
+
 ## Installation
 
 ### Option 1: Building Locally
@@ -36,7 +40,7 @@ Once pulled, you can run the image using:
 docker run -it --entrypoint /bin/bash xeden3/docker-office-python-core:v1
 ```
 
-## Extending Functionality
+# Extending Functionality
 
 If you require additional functionality beyond the core environment provided by this image, you can create another Docker image that extends from it. This allows you to encapsulate specific development requirements while maintaining the core setup intact. 
 
@@ -69,3 +73,10 @@ ENTRYPOINT ["/tini", "--", "xvfb-run", "-a", "wine", "python", "/opt/wineprefix/
 ```
 
 Feel free to modify and customize this Dockerfile according to your specific development needs.
+
+# Acknowledgements
+
+Special thanks to the following contributors and projects:
+
+- [Akkuman](https://github.com/akkuman/docker-msoffice2010-python) for the initial inspiration and the `docker-msoffice2010-python` project.
+- Akkuman for providing technical support.
