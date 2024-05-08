@@ -36,7 +36,11 @@ Once pulled, you can run the image using:
 docker run -it --entrypoint /bin/bash xeden3/docker-office-python-core:v1
 ```
 
-Please note that this image only serves as the core environment. If you need to perform secondary development, you may need to encapsulate this image further. For example, if you want to run a macro command `excel-macro-run`, you can create another Docker image that extends from this core image. Below is an example Dockerfile for extending the functionality:
+## Extending Functionality
+
+If you require additional functionality beyond the core environment provided by this image, you can create another Docker image that extends from it. This allows you to encapsulate specific development requirements while maintaining the core setup intact. 
+
+For instance, if you need to run a macro command like `excel-macro-run`, you can create a Docker image that builds upon the core image. Below is an example Dockerfile demonstrating how to extend the functionality:
 
 ```Dockerfile
 FROM xeden3/docker-office-python-core:v1
@@ -64,4 +68,4 @@ RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--", "xvfb-run", "-a", "wine", "python", "/opt/wineprefix/drive_c/app/excel_xlsm.py"]
 ```
 
-This Dockerfile extends the core image by adding the necessary dependencies and setting the appropriate entry point for running the `excel_xlsm.py` script.
+Feel free to modify and customize this Dockerfile according to your specific development needs.
