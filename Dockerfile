@@ -48,4 +48,5 @@ RUN umask 0 && \
     # ensure the normal running of office2010
     xvfb-run winecfg -v win8 && \
     # clean
-    rm -rf /root/python-3.8.2.exe /root/Office2010_4in1_20210124.exe
+    rm -rf /root/python-3.8.2.exe /root/Office2010_4in1_20210124.exe && \
+    apt-get remove -y python3-crypto 
