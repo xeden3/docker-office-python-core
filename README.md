@@ -8,7 +8,7 @@ This project combines a Docker image containing Wine 8, Microsoft Office 2010, a
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/<your-github-username>/docker-office-python-core.git
+   git clone https://github.com/xeden3/docker-office-python-core.git
    ```
 
 2. Navigate into the cloned directory:
@@ -80,3 +80,43 @@ Special thanks to the following contributors and projects:
 
 - [Akkuman](https://github.com/akkuman/docker-msoffice2010-python) for the initial inspiration and the `docker-msoffice2010-python` project.
 - Akkuman for providing technical support.
+
+# Additional notes:
+
+### 1. Wine Environment Pull Issue
+The first issue is that the Wine environment might not be pulled correctly when you build the iamge. This can be fixed by running:
+
+```bash
+docker pull scottyhardy/docker-wine:stable-8.0.2
+```
+
+to pull the image locally.
+
+![pull wine manual](https://github.com/user-attachments/assets/2f0fa96b-f750-46f8-b5e2-a7d08f9a1825)
+
+### 2. Wine Environment Setup for Python 3.9 Installation
+
+When you want to update python verion and rebuild the image, you may get error on running following command:
+```bash
+xvfb-run wine /root/python-3.9.9.exe /quiet InstallAllUsers=1 PrependPath=1 Include_doc=0
+```
+
+You need to set the Wine environment to **Windows 10** instead of **Windows 8**, as mentioned in the [Python documentation](https://docs.python.org/3.9/using/windows.html).
+
+> **Note**: Python release only supports a Windows platform while Microsoft considers the platform under extended support. This means that Python 3.9 supports Windows 8.1 and newer. If you require Windows 7 support, please install Python 3.8.
+
+Since Python 3.9 only supports Windows 8.1 and newer, Wine’s **Windows 8** environment might not be fully compatible with Windows 8.1. To fix this, you need to switch the Wine environment to **Windows 10** using the following command:
+
+```bash
+xvfb-run winecfg -v win10
+```
+
+This will allow the installation to work correctly.
+
+![python 3.9 install](https://github.com/user-attachments/assets/e8a76fb4-e5f8-4a12-8c89-fc6735da950d)
+
+### 3. Performance Considerations with Wine
+I should mention that running Python and Office macros in Wine has very poor performance. While it may be fine for smaller macros, it becomes unbearable when dealing with larger computations. Therefore, using Wine should be considered carefully for such use cases.
+
+
+
